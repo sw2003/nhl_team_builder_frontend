@@ -29,7 +29,7 @@ function PlayerSearch({ isOpen, setVisiblity }) {
 
     return (
         <div className={`flex justify-center items-center`}>
-            <div className={`fixed w-full max-h-96 max-w-2xl bottom-0 z-20 bg-blue-950 ml-16 transition-all duration-500 ${!isOpen && 'scale-y-0'}`}>
+            <div className={`fixed w-full max-h-96 max-w-2xl bottom-0 z-20 bg-blue-950 transition-all duration-500 ${!isOpen && 'scale-y-0'}`}>
                 <div className="absolute top-0 right-0 text-white">
                     <AiOutlineCaretDown className="mt-1 mr-1 cursor-pointer	" size={40} onClick={() => setVisiblity(!isOpen)}></AiOutlineCaretDown>
                 </div>
