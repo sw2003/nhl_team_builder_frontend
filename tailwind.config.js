@@ -5,8 +5,5 @@ module.exports = {
   theme: {
     extend: {},
   },
-  plugins: [],
-  "editor.quickSuggestions": {
-    "strings": true
-  }
+  plugins: []
 }
