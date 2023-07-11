@@ -1,12 +1,18 @@
-import React, { useState } from 'react';
+import React, {  } from 'react';
+import { useNavigate } from "react-router-dom";
 
 
-function NavbarButton({ icon }){
+function NavbarButton({ icon ,path, name}){
+    const navigate = useNavigate();
+    function onClick(){
+        navigate(path);
+    }
+
     return (
-        <div className='h-12 w-12 flex justify-center items-center p-3 my-2 mx-auto bg-white hover:bg-green-200 text-black group transition-all duration-300'>
+        <div onClick={()=>onClick()} className='h-12 w-12 flex justify-center items-center p-3 my-2 mx-auto bg-white hover:bg-green-200 text-black group transition-all duration-100'>
             {icon} 
             <span className='absolute left-20 scale-0 group-hover:scale-100 transition-all duration-300'>
-                Testing
+                {name}
             </span>
         </div>
     )
