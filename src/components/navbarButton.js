@@ -1,11 +1,23 @@
-import React, {  } from 'react';
+import React, { useContext } from 'react';
 import { useNavigate } from "react-router-dom";
 
+import PlayerContext from '../PlayerContext';
+import PlayerSearch from './playerSearch';
 
 function NavbarButton({ icon ,path, name}){
+    const PContext = useContext(PlayerSearch);
+    const setMode = PContext.setMode; 
+
+
     const navigate = useNavigate();
     function onClick(){
         navigate(path);
+        if (path === '/'){
+            setMode('forwards')
+        }
+        else{
+            setMode(path); 
+        }
     }
 
     return (

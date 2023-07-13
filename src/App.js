@@ -8,9 +8,10 @@ import {
 
 import Navbar from "./components/navbar";
 import PlayerSearch from "./components/playerSearch";
-import PlayerContainer from './components/playerContainer';
+import ForwardContainer from './components/forwardContainer';
+import DefenderContainer from './components/defenderContainer';
 
-import { ForwardProvider } from './ForwardContext';
+import { PlayerProvider } from './PlayerContext';
 
 
 function App() {
@@ -26,9 +27,9 @@ function App() {
   return (
     <BrowserRouter>
       <>
-        <Navbar></Navbar>
-        <ForwardProvider teamName='leafs'>
-          <div className="relative h-screen ml-16" style={specialWidth}>
+        <PlayerProvider teamName='leafs'>
+          <Navbar></Navbar>
+          <div className="relative h-[125vh] ml-16" style={specialWidth}>
             <div className="relative max-w-5xl w-full mx-auto max-h-12 h-full">
               <div className="absolute right-0 p-2">
                 <button className="mr-2">Select Team</button>
@@ -39,21 +40,21 @@ function App() {
             <Routes>
               <Route path='/' element={
                 <>
-                  <h1 className='relative text-center bg-slate-700 p-2 text-white w-1/2 mx-auto'>Forwards</h1>
-                  <PlayerContainer isOpen={isOpen} setVisiblity={setVisiblity}></PlayerContainer>
+                  <h1 className='relative text-center bg-slate-700 p-2 text-white w-1/2 mx-auto border rounded'>Forwards</h1>
+                  <ForwardContainer isOpen={isOpen} setVisiblity={setVisiblity}></ForwardContainer>
                 </>
               }></Route>
-              <Route path='/Defense' element={
+              <Route path='/Defenders' element={
                 <>
-                  <h1 className='relative text-center bg-slate-700 p-2 text-white w-1/2 mx-auto'>Defenders</h1>
-                  <PlayerContainer isOpen={isOpen} setVisiblity={setVisiblity}></PlayerContainer>
+                  <h1 className='relative text-center bg-slate-700 p-2 text-white w-1/2 mx-auto border rounded'>Defenders</h1>
+                  <DefenderContainer isOpen={isOpen} setVisiblity={setVisiblity}></DefenderContainer>
                 </>
               }></Route>
             </Routes>
 
           </div>
           <PlayerSearch isOpen={isOpen} setVisiblity={setVisiblity}></PlayerSearch>
-        </ForwardProvider>
+        </PlayerProvider>
       </>
     </BrowserRouter>
   );

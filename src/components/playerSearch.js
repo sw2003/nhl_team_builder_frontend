@@ -19,7 +19,7 @@ function PlayerSearch({ isOpen, setVisiblity }) {
 
     useEffect(() => {
         if (input !== '') {
-            fetch(`http://localhost:4000/json?prefix=${input}`, options)
+            fetch(`http://localhost:4000/api/search?prefix=${input}`, options)
                 .then((res) => res.json())
                 .then((res) => {
                     setPlayerList(res);
@@ -29,7 +29,7 @@ function PlayerSearch({ isOpen, setVisiblity }) {
 
     return (
         <div className={`flex justify-center items-center`}>
-            <div className={`fixed w-full max-h-96 max-w-2xl bottom-0 z-20 bg-blue-950 transition-all duration-500 ${!isOpen && 'scale-y-0'}`}>
+            <div className={`fixed w-full max-h-96 h-full max-w-2xl bottom-0 z-20 bg-blue-950 transition-all duration-500 ${!isOpen && 'scale-y-0'} origin-bottom`}>
                 <div className="absolute top-0 right-0 text-white">
                     <AiOutlineCaretDown className="mt-1 mr-1 cursor-pointer	" size={40} onClick={() => setVisiblity(!isOpen)}></AiOutlineCaretDown>
                 </div>
@@ -39,13 +39,16 @@ function PlayerSearch({ isOpen, setVisiblity }) {
                 </div>
 
                 <div className="w-full flex flex-col">
-                    {
-                        playerList.map((player) => {
-                            return (
-                                <SearchResult key={nanoid()} name={player.name} team={player.team}></SearchResult>
-                            )
-                        })
-                    }
+                    <div className='overflow-scroll h-[45vh]'>
+                        {
+                            playerList.map((player) => {
+                                return (
+                                    <SearchResult key={nanoid()} name={player.fullname} team={player.team} goals={player.goals} assists={player.assists} plusminus={player.plusminus}></SearchResult>
+                                )
+                            })
+                        }
+
+                    </div>
                 </div>
             </div>
         </div>
