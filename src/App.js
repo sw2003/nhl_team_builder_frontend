@@ -10,6 +10,7 @@ import Navbar from "./components/navbar";
 import PlayerSearch from "./components/playerSearch";
 import ForwardContainer from './components/forwardContainer';
 import DefenderContainer from './components/defenderContainer';
+import GoalieContainer from './components/goalieContainer';
 
 import { PlayerProvider } from './PlayerContext';
 
@@ -28,7 +29,7 @@ function App() {
     <BrowserRouter>
       <>
         <PlayerProvider teamName='leafs'>
-          <Navbar></Navbar>
+          <Navbar setVisiblity={setVisiblity}></Navbar>
           <div className="relative h-[125vh] ml-16" style={specialWidth}>
             <div className="relative max-w-5xl w-full mx-auto max-h-12 h-full">
               <div className="absolute right-0 p-2">
@@ -50,6 +51,14 @@ function App() {
                   <DefenderContainer isOpen={isOpen} setVisiblity={setVisiblity}></DefenderContainer>
                 </>
               }></Route>
+              <Route path='/Goalies' element={
+                <>
+                  <h1 className='relative text-center bg-slate-700 p-2 text-white w-1/2 mx-auto border rounded'>Goalies</h1>
+                  <GoalieContainer isOpen={isOpen} setVisiblity={setVisiblity}></GoalieContainer>
+                </>
+              }></Route>
+
+
             </Routes>
 
           </div>

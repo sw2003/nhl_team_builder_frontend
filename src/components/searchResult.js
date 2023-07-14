@@ -2,7 +2,36 @@ import React, { useState, useContext } from 'react';
 import { MdAddCircle } from 'react-icons/md'
 import PlayerContext from '../PlayerContext';
 
-function SearchResult({name, team, goals, assists, plusminus}) {
+function SearchResult(props) {
+    /*
+        Shared fields
+    */
+    const name = props?.name;
+    const team = props?.team;
+    const gamesPlayed = props?.gamesPlayed; 
+
+
+    /*
+        Skater Fields
+    */
+
+    const goals = props?.goals;
+    const assists = props?.assists;
+    const plusminus = props?.plusminus;  
+    const shots = props?.shots; 
+    const positionCode = props?.positionCode; 
+    const timeOnIcePerGame = props?.timeOnIcePerGame; 
+    
+    /*
+        Goalie Fields
+    */
+
+    const savePct = props?.savePct;
+    const saves = props?.saves; 
+    const goalsAgainstAverage = props?.goalsAgainstAverage; 
+    const wins = props?.wins; 
+    const losses = props?.losses; 
+
     const FContext = useContext(PlayerContext);
     const selectedFData = FContext.selectedForward; 
     const selectedFName = selectedFData.name; 
@@ -14,10 +43,23 @@ function SearchResult({name, team, goals, assists, plusminus}) {
     const DefenderData = FContext.defenderData;
     const setDefenderData = FContext.setDefenderData; 
 
+    const GoalieData = FContext.goalieData; 
+    const setGoalieData = FContext.setGoalieData; 
+
     function onClick(){
         const updatedForwardData = ForwardData.map((plr)=>{
             if (plr.position === selectedFPosition){
-                return {position: plr.position, name: name, goals: goals, assists: assists, plusminus: plusminus}
+                return {
+                    position: plr.position,
+                    name: name, 
+                    goals: goals, 
+                    assists: assists, 
+                    plusminus: plusminus,
+                    shots: shots, 
+                    positionCode: positionCode, 
+                    timeOnIcePerGame: timeOnIcePerGame, 
+                    gamesPlayed: gamesPlayed
+                }
             }
             else{ 
                 return plr; 
@@ -26,15 +68,36 @@ function SearchResult({name, team, goals, assists, plusminus}) {
 
         const updatedDefenderData = DefenderData.map((plr)=>{
             if (plr.position === selectedFPosition){
-                return {position: plr.position, name: name, goals: goals, assists: assists, plusminus: plusminus}
+                return {
+                    position: plr.position,
+                    name: name, 
+                    goals: goals, 
+                    assists: assists, 
+                    plusminus: plusminus,
+                    shots: shots, 
+                    positionCode: positionCode, 
+                    timeOnIcePerGame: timeOnIcePerGame,
+                    gamesPlayed: gamesPlayed
+                }
             }
             else{ 
                 return plr; 
             }
         })
 
+        const updatedGoalieData = GoalieData.map((plr)=>{
+            if (plr.position === selectedFPosition){
+                return {position: plr.position, name: name, savePct: savePct, goalsAgainstAverage: goalsAgainstAverage, saves: saves, wins:wins, losses:losses}
+            }
+            else{ 
+                return plr; 
+            }
+        })
+
+
         setForwardData(updatedForwardData);
         setDefenderData(updatedDefenderData);
+        setGoalieData(updatedGoalieData); 
     }
 
     return (

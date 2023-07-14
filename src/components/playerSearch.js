@@ -1,31 +1,43 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { AiOutlineCaretDown } from "react-icons/ai"
 import SearchResult from './searchResult';
 import { nanoid } from 'nanoid';
+import PlayerContext from '../PlayerContext';
 
 function PlayerSearch({ isOpen, setVisiblity }) {
     const [input, setInput] = useState('');
     const [debouncedInput, setDebouncedInput] = useState('');
     const [playerList, setPlayerList] = useState([]);
 
+    const mode = useContext(PlayerContext).mode; 
+
+    useEffect(()=>{
+        setInput(''); 
+        setDebouncedInput('');
+        setPlayerList([]); 
+    }, [mode, setInput, setDebouncedInput, setPlayerList])
+    
+
     useEffect(() => {
         const timer = setTimeout(() => setInput(debouncedInput), 1000)
         return () => clearTimeout(timer);
     }, [debouncedInput])
 
-    const options = {
-        method: 'GET',
-    }
+
 
     useEffect(() => {
+        const options = {
+            method: 'GET',
+        }
+
         if (input !== '') {
-            fetch(`http://localhost:4000/api/search?prefix=${input}`, options)
+            fetch(`http://localhost:4000/api/search?prefix=${input}&mode=${mode}`, options)
                 .then((res) => res.json())
                 .then((res) => {
                     setPlayerList(res);
                 });
         }
-    }, [input]);
+    }, [input, mode]);
 
     return (
         <div className={`flex justify-center items-center`}>
@@ -41,13 +53,30 @@ function PlayerSearch({ isOpen, setVisiblity }) {
                 <div className="w-full flex flex-col">
                     <div className='overflow-scroll h-[45vh]'>
                         {
+                            mode === '/forwards' || mode === '/Defenders' ? 
+                            playerList.map((player) => {
+                                console.log(player); 
+                                return (
+                                    <SearchResult key={nanoid()} 
+                                                  name={player.fullname} 
+                                                  team={player.team} 
+                                                  goals={player.goals} 
+                                                  assists={player.assists} 
+                                                  plusminus={player.plusMinus}
+                                                  gamesPlayed={player.gamesPlayed}
+                                                  shots={player.shots}
+                                                  positionCode={player.positionCode}
+                                                  timeOnIcePerGame={player.timeOnIcePerGame}
+                                                  >
+                                    </SearchResult>
+                                )
+                            }) : 
                             playerList.map((player) => {
                                 return (
-                                    <SearchResult key={nanoid()} name={player.fullname} team={player.team} goals={player.goals} assists={player.assists} plusminus={player.plusminus}></SearchResult>
+                                    <SearchResult key={nanoid()} name={player.fullname} team={player.team} saves={player.saves} goalsAgainstAverage={player.goalsAgainstAverage} wins={player.wins} losses={player.losses} savePct={player.savePct}></SearchResult>
                                 )
-                            })
+                            }) 
                         }
-
                     </div>
                 </div>
             </div>

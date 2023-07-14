@@ -4,8 +4,8 @@ import { useNavigate } from "react-router-dom";
 import PlayerContext from '../PlayerContext';
 import PlayerSearch from './playerSearch';
 
-function NavbarButton({ icon ,path, name}){
-    const PContext = useContext(PlayerSearch);
+function NavbarButton({ icon ,path, name, setVisiblity}){
+    const PContext = useContext(PlayerContext);
     const setMode = PContext.setMode; 
 
 
@@ -13,11 +13,12 @@ function NavbarButton({ icon ,path, name}){
     function onClick(){
         navigate(path);
         if (path === '/'){
-            setMode('forwards')
+            setMode('/forwards')
         }
         else{
             setMode(path); 
         }
+        setVisiblity(false); 
     }
 
     return (
