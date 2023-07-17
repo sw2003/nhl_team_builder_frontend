@@ -20,14 +20,14 @@ function ForwardContainer({isOpen, setVisiblity}) {
             {
                 data.map((plr) => {
                     return <PlayerBox 
-                        key={plr.position} 
+                        key={plr.linePosition || plr.position} 
                         isOpen={isOpen} 
                         setVisiblity={setVisiblity} 
-                        playerName={plr.name} 
-                        playerPosition={plr.position} 
+                        playerName={plr.fullname} 
+                        playerPosition={plr.positionCode} 
                         goals={plr.goals} 
                         assists={plr.assists} 
-                        plusminus={plr.plusminus}
+                        plusminus={plr.plusMinus}
                         shots={plr.shots} 
                         positionCode={plr.positionCode} 
                         team={plr.team}
