@@ -3,6 +3,7 @@ import mcdavid from '../imgs/mcdavid.png'
 import PlayerContext from '../PlayerContext';
 import { AiOutlineEdit } from 'react-icons/ai'
 import PlayerImage from './playerImage';
+import TeamImage from './teamImage';
 
 function PlayerBox(props) {
     const isOpen = props.IsOpen;
@@ -17,8 +18,14 @@ function PlayerBox(props) {
     const gamesPlayed = props?.gamesPlayed; 
     const shots = props?.shots; 
     const positionCode = props?.positionCode; 
-    const team = props?.team; 
+    const linePosition = props?.linePosition;
+    let team = props?.team.split(',')[0]; 
+    if (props?.team.split(',').length > 1){
+        team = props?.team.split(',')[1]; 
+    }
+
     const timeOnIcePerGame = props?.timeOnIcePerGame; 
+    const caphit = props?.caphit
 
     const savePct = props?.savePct;
     const saves = props?.saves;
@@ -33,34 +40,35 @@ function PlayerBox(props) {
 
     function onClick() {
         if (selectedData.name === '') {
-            setSelectedData({ name: playerName, position: playerPosition });
+            setSelectedData({ name: playerName, position: linePosition });
             setVisiblity(true);
             return;
         }
 
-        if (selectedData.name === playerName && selectedData.position === playerPosition) {
+        if (selectedData.name === playerName && selectedData.position === linePosition) {
             setVisiblity(!isOpen);
             return;
         }
         else {
             setVisiblity(true);
-            setSelectedData({ name: playerName, position: playerPosition });
+            setSelectedData({ name: playerName, position: linePosition });
             return;
         }
     }
 
 
-
-    
-
     return (
-        <div className='bg-slate-50 relative group rounded-xl'>
+        <div className='bg-white relative group rounded-xl border'>
+            <TeamImage team={team}></TeamImage>
+            <div className='absolute left-[50px] h-[50px] text-black flex justify-center items-center font-bold text-2xl'>{positionCode}</div>
+            <div className='absolute top-0 right-0 text-black'>{caphit}</div>
             <PlayerImage playerPosition={playerPosition} name={playerName}></PlayerImage>
             {/*<img src={playerPosition?.charAt(0) === 'G' && playerName ? require(`../imgs/goalieImages/${playerName}.jpeg`) : require(`../imgs/playerImages/${playerName}.jpeg`)} className=' w-[220px] h-[159px] mx-auto' alt="" />*/}
             <p className='text-black group-hover:scale-125 group-hover:font-bold transition-all text-center'>{playerName}</p>
 
             <AiOutlineEdit size={30} onClick={() => onClick()} className='text-black absolute top-0 right-0 mr-2 mt-2 cursor-pointer group-hover:opacity-100 opacity-0 transition-all duration-200'></AiOutlineEdit>
-            <div className=' w-[95%]  border-2 rounded-2xl overflow-hidden mx-auto text-center'>
+
+            <div className=' w-[95%]  border-2 rounded-2xl overflow-hidden mx-auto text-center mb-2'>
                 <div className=' w-full bg-cyan-700'>2022-2023 SEASON STATS</div>
                 <div className={`grid ${typeof(goals) === "number" ? 'grid-cols-4' : 'grid-cols-6'} gap-x-0.5 text-black`}>
                     <div className='flex flex-col'>
@@ -81,7 +89,7 @@ function PlayerBox(props) {
                     </div>
                     
                     {   
-                    
+
                         typeof(goals) !== "number" && (<>
                             <div className='flex flex-col'>
                                 <div className='font-light'>L</div>

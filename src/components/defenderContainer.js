@@ -16,14 +16,20 @@ function DefenderContainer({isOpen, setVisiblity}) {
             {
                 data.map((plr) => {
                     return <PlayerBox 
-                            key={plr.linePosition} 
-                            isOpen={isOpen}
+                            key={plr.linePosition || plr.position} 
+                            isOpen={isOpen} 
                             setVisiblity={setVisiblity} 
                             playerName={plr.fullname} 
-                            playerPosition={plr.position} 
+                            playerPosition={plr.positionCode} 
                             goals={plr.goals} 
                             assists={plr.assists} 
-                            plusminus={plr.plusMinus}>
+                            plusminus={plr.plusMinus}
+                            shots={plr.shots} 
+                            positionCode={plr.positionCode} 
+                            team={plr.team}
+                            timeOnIcePerGame={plr.timeOnIcePerGame}
+                            caphit={plr.caphit}
+                            linePosition={plr.linePosition}>
                         </PlayerBox>
                 })
             }

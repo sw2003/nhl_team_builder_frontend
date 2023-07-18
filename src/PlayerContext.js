@@ -41,12 +41,18 @@ export function PlayerProvider({children, teamName}){
     const [defenderData, setDefenderData] = useState([]); 
     const [goalieData, setGoalieData] = useState(goalies); 
 
+    useEffect(()=>{
+        console.log(forwardData); 
+    }, [forwardData])
+
+
     const [selectedForward, setSelected] = useState({name: '', position: ''});
 
     const [mode, setMode] = useState('/forwards');
 
     useEffect(()=>{
         try {
+            console.log("start fetching.."); 
             fetch('http://localhost:8000/api') 
                 .then((res)=>res.json())
                 .then((res)=>{
@@ -91,10 +97,8 @@ export function PlayerProvider({children, teamName}){
                     setDefenderData(defenderList); 
                 }) 
         } catch (error){
-
+            console.log(error) 
         }
-
-
 
     }, [])
     

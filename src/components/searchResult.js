@@ -9,6 +9,7 @@ function SearchResult(props) {
     */
     const name = props?.name;
     const team = props?.team.split(',')[0];
+
     const gamesPlayed = props?.gamesPlayed; 
 
 
@@ -22,6 +23,7 @@ function SearchResult(props) {
     const shots = props?.shots; 
     const positionCode = props?.positionCode; 
     const timeOnIcePerGame = props?.timeOnIcePerGame; 
+    const caphit = props?.caphit; 
     
     /*
         Goalie Fields
@@ -51,17 +53,19 @@ function SearchResult(props) {
 
     function onClick(){
         const updatedForwardData = ForwardData.map((plr)=>{
-            if (plr.position === selectedFPosition){
+            if (plr?.linePosition === selectedFPosition){
                 return {
-                    position: plr.position,
-                    name: name, 
+                    linePosition: plr?.linePosition,
+                    fullname: name, 
+                    team: team, 
                     goals: goals, 
                     assists: assists, 
-                    plusminus: plusminus,
+                    plusMinus: plusminus,
                     shots: shots, 
                     positionCode: positionCode, 
                     timeOnIcePerGame: timeOnIcePerGame, 
-                    gamesPlayed: gamesPlayed
+                    gamesPlayed: gamesPlayed,
+                    caphit: caphit
                 }
             }
             else{ 
@@ -70,17 +74,19 @@ function SearchResult(props) {
         })       
 
         const updatedDefenderData = DefenderData.map((plr)=>{
-            if (plr.position === selectedFPosition){
+            if (plr?.linePosition === selectedFPosition){
                 return {
-                    position: plr.position,
-                    name: name, 
+                    linePosition: plr?.linePosition,
+                    fullname: name, 
+                    team: team, 
                     goals: goals, 
                     assists: assists, 
-                    plusminus: plusminus,
+                    plusMinus: plusminus,
                     shots: shots, 
                     positionCode: positionCode, 
-                    timeOnIcePerGame: timeOnIcePerGame,
-                    gamesPlayed: gamesPlayed
+                    timeOnIcePerGame: timeOnIcePerGame, 
+                    gamesPlayed: gamesPlayed,
+                    caphit: caphit
                 }
             }
             else{ 

@@ -32,6 +32,8 @@ function ForwardContainer({isOpen, setVisiblity}) {
                         positionCode={plr.positionCode} 
                         team={plr.team}
                         timeOnIcePerGame={plr.timeOnIcePerGame}
+                        caphit={plr.caphit}
+                        linePosition={plr.linePosition}
                         >
                     </PlayerBox>
                 })

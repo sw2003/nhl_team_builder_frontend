@@ -11,6 +11,7 @@ import PlayerSearch from "./components/playerSearch";
 import ForwardContainer from './components/forwardContainer';
 import DefenderContainer from './components/defenderContainer';
 import GoalieContainer from './components/goalieContainer';
+import TeamButton from './components/teamButton';
 
 import { PlayerProvider } from './PlayerContext';
 
@@ -30,11 +31,10 @@ function App() {
       <>
         <PlayerProvider teamName='leafs'>
           <Navbar setVisiblity={setVisiblity}></Navbar>
-          <div className="relative h-[125vh] ml-16" style={specialWidth}>
+          <div className="relative h-[125vh] ml-16 bg-slate-50" style={specialWidth}>
             <div className="relative max-w-5xl w-full mx-auto max-h-12 h-full">
-              <div className="absolute right-0 p-2">
-                <button className="mr-2">Select Team</button>
-                <span>0/100000💰</span>
+              <div className="absolute right-0 top-0 z-30">
+                <TeamButton></TeamButton>
               </div>
             </div>
 

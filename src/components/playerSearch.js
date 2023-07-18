@@ -55,7 +55,6 @@ function PlayerSearch({ isOpen, setVisiblity }) {
                         {
                             mode === '/forwards' || mode === '/Defenders' ? 
                             playerList.map((player) => {
-                                console.log(player); 
                                 return (
                                     <SearchResult key={nanoid()} 
                                                   name={player.fullname} 
@@ -67,6 +66,7 @@ function PlayerSearch({ isOpen, setVisiblity }) {
                                                   shots={player.shots}
                                                   positionCode={player.positionCode}
                                                   timeOnIcePerGame={player.timeOnIcePerGame}
+                                                  caphit={player.caphit} 
                                                   >
                                     </SearchResult>
                                 )
