@@ -95,8 +95,17 @@ function SearchResult(props) {
         })
 
         const updatedGoalieData = GoalieData.map((plr)=>{
-            if (plr.position === selectedFPosition){
-                return {position: plr.position, name: name, savePct: savePct, goalsAgainstAverage: goalsAgainstAverage, saves: saves, wins:wins, losses:losses}
+            if (plr?.linePosition === selectedFPosition){
+                return {
+                    linePosition: plr.linePosition, 
+                    fullname: name, 
+                    savePct: savePct, 
+                    goalsAgainstAverage: goalsAgainstAverage, 
+                    saves: saves, 
+                    wins:wins, 
+                    losses:losses, 
+                    team: team
+                }
             }
             else{ 
                 return plr; 

@@ -23,7 +23,7 @@ function App() {
 
 
   const specialWidth = {
-    width: 'calc(100vw-4rem)'
+    width: 'calc(100vw-5rem)'
   }
 
   return (
@@ -31,7 +31,7 @@ function App() {
       <>
         <PlayerProvider teamName='leafs'>
           <Navbar setVisiblity={setVisiblity}></Navbar>
-          <div className="relative h-[125vh] ml-16 bg-slate-50" style={specialWidth}>
+          <div className="relative h-[125vh] ml-20 bg-slate-50" style={specialWidth}>
             <div className="relative max-w-5xl w-full mx-auto max-h-12 h-full">
               <div className="absolute right-0 top-0 z-30">
                 <TeamButton></TeamButton>

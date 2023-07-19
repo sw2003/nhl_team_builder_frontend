@@ -73,7 +73,14 @@ function PlayerSearch({ isOpen, setVisiblity }) {
                             }) : 
                             playerList.map((player) => {
                                 return (
-                                    <SearchResult key={nanoid()} name={player.fullname} team={player.team} saves={player.saves} goalsAgainstAverage={player.goalsAgainstAverage} wins={player.wins} losses={player.losses} savePct={player.savePct}></SearchResult>
+                                    <SearchResult key={nanoid()} 
+                                        name={player.fullname} 
+                                        team={player.team} 
+                                        saves={player.saves} 
+                                        goalsAgainstAverage={player.goalsAgainstAverage} 
+                                        wins={player.wins} losses={player.losses} 
+                                        savePct={player.savePct}>
+                                    </SearchResult>
                                 )
                             }) 
                         }

@@ -3,33 +3,7 @@ import {createContext, useState, useEffect} from 'react'
 const PlayerContext = createContext();
 
 export function PlayerProvider({children, teamName}){
-    /*
-    const forwards = [
-        {position: 'LW1', name: 'Auston Matthews', goals: 'N/A', assists: 'N/A', plusminus:'N/A', gamesPlayed: 0, shots: 0, positionCode: '', team: '', timeOnIcePerGame: 0},
-        {position: 'C1', name: 'Auston Matthews', goals: 'N/A', assists: 'N/A', plusminus:'N/A',gamesPlayed: 0, shots: 0, positionCode: '', team: '', timeOnIcePerGame: 0},
-        {position: 'RW1', name: 'Auston Matthews', goals: 'N/A', assists: 'N/A', plusminus:'N/A', gamesPlayed: 0, shots: 0, positionCode: '', team: '', timeOnIcePerGame: 0},
-        {position: 'LW2', name: 'Max Domi', goals: 'N/A', assists: 'N/A', plusminus:'N/A', gamesPlayed: 0, shots: 0, positionCode: '', team: '', timeOnIcePerGame: 0},
-        {position: 'C2', name: 'John Tavares', goals: 'N/A', assists: 'N/A', plusminus:'N/A', gamesPlayed: 0, shots: 0, positionCode: '', team: '', timeOnIcePerGame: 0}, 
-        {position: 'RW2', name: 'William Nylander', goals: 'N/A', assists: 'N/A', plusminus:'N/A', gamesPlayed: 0, shots: 0, positionCode: '', team: '', timeOnIcePerGame: 0},
-        {position: 'LW3', name: 'Max Domi', goals: 'N/A', assists: 'N/A', plusminus:'N/A', gamesPlayed: 0, shots: 0, positionCode: '', team: '', timeOnIcePerGame: 0},
-        {position: 'C3', name: 'David Kampf', goals: 'N/A', assists: 'N/A', plusminus:'N/A', gamesPlayed: 0, shots: 0, positionCode: '', team: '', timeOnIcePerGame: 0}, 
-        {position: 'RW3', name: 'Calle Jarnkrok', goals: 'N/A', assists: 'N/A', plusminus:'N/A', gamesPlayed: 0, shots: 0, positionCode: '', team: '', timeOnIcePerGame: 0}, 
-        {position: 'LW4', name: 'Sam Lafferty', goals: 'N/A', assists: 'N/A', plusminus:'N/A', gamesPlayed: 0, shots: 0, positionCode: '', team: '', timeOnIcePerGame: 0}, 
-        {position: 'C4', name: 'David Kampf', goals: 'N/A', assists: 'N/A', plusminus:'N/A', gamesPlayed: 0, shots: 0, positionCode: '', team: '', timeOnIcePerGame: 0}, 
-        {position: 'RW4', name: 'Sam Lafferty', goals: 'N/A', assists: 'N/A', plusminus:'N/A', gamesPlayed: 0, shots: 0, positionCode: '', team: '', timeOnIcePerGame: 0}, 
-    ]
 
-    const defenders = [
-        {position: 'L1', name: 'Auston Matthews', goals: 'N/A', assists: 'N/A', plusminus:'N/A', gamesPlayed: 0, shots: 0, positionCode: '', team: '', timeOnIcePerGame: 0},
-        {position: 'R1', name: 'Auston Matthews', goals: 'N/A', assists: 'N/A', plusminus:'N/A', gamesPlayed: 0, shots: 0, positionCode: '', team: '', timeOnIcePerGame: 0},
-        {position: 'L2', name: 'Auston Matthews', goals: 'N/A', assists: 'N/A', plusminus:'N/A', gamesPlayed: 0, shots: 0, positionCode: '', team: '', timeOnIcePerGame: 0},
-        {position: 'R2', name: 'Max Domi', goals: 'N/A', assists: 'N/A', plusminus:'N/A', gamesPlayed: 0, shots: 0, positionCode: '', team: '', timeOnIcePerGame: 0},
-        {position: 'L3', name: 'John Tavares', goals: 'N/A', assists: 'N/A', plusminus:'N/A', gamesPlayed: 0, shots: 0, positionCode: '', team: '', timeOnIcePerGame: 0}, 
-        {position: 'R3', name: 'William Nylander', goals: 'N/A', assists: 'N/A', plusminus:'N/A', gamesPlayed: 0, shots: 0, positionCode: '', team: '', timeOnIcePerGame: 0},
-        {position: 'L4', name: 'Max Domi', goals: 'N/A', assists: 'N/A', plusminus:'N/A', gamesPlayed: 0, shots: 0, positionCode: '', team: '', timeOnIcePerGame: 0},
-        {position: 'R4', name: 'David Kampf', goals: 'N/A', assists: 'N/A', plusminus:'N/A', gamesPlayed: 0, shots: 0, positionCode: '', team: '', timeOnIcePerGame: 0}, 
-    ]
-    */
 
     const goalies = [
         {position: 'G1', name: 'Linus Ullmark', savePct: 0, saves: 0, wins: 0, losses: 0, goalsAgainstAverage: 0},
@@ -41,24 +15,22 @@ export function PlayerProvider({children, teamName}){
     const [defenderData, setDefenderData] = useState([]); 
     const [goalieData, setGoalieData] = useState(goalies); 
 
-    useEffect(()=>{
-        console.log(forwardData); 
-    }, [forwardData])
-
-
     const [selectedForward, setSelected] = useState({name: '', position: ''});
 
     const [mode, setMode] = useState('/forwards');
 
+    const [team, setTeam] = useState('new-york-rangers'); 
+
+
     useEffect(()=>{
         try {
-            console.log("start fetching.."); 
-            fetch('http://localhost:8000/api') 
+            fetch(`http://localhost:8000/api?teamname=${team}`) 
                 .then((res)=>res.json())
                 .then((res)=>{
                     let counter = 0; 
                     let forwardList = [];
                     let defenderList = [];
+                    let goalieList = []; 
                     for (let i = 0; i<res.length; i++){
                         if (counter < 12){
                             let positions = ['L', 'C', 'R'];
@@ -73,10 +45,9 @@ export function PlayerProvider({children, teamName}){
                             
                             res[i].linePosition = `${positions[i % 3]}${line}`
 
-                            console.log(`${res[i].fullname} ${res[i].linePosition}`)
                             forwardList.push(res[i]); 
                         }
-                        else{
+                        else if (counter < 18){
                             let positions = ['LD', 'RD'];
 
                             let line = 1;
@@ -90,17 +61,27 @@ export function PlayerProvider({children, teamName}){
                             res[i].linePosition = `${positions[i % 2]}${line}`
                             defenderList.push(res[i]); 
                         }
+                        else{
+
+
+                            res[i].linePosition = `G${counter}`
+                            
+
+
+                            goalieList.push(res[i])
+                        }
                         counter++; 
                     }
 
                     setForwardData(forwardList);
                     setDefenderData(defenderList); 
+                    setGoalieData(goalieList); 
                 }) 
         } catch (error){
             console.log(error) 
         }
 
-    }, [])
+    }, [team])
     
     return (
         <PlayerContext.Provider value={{
@@ -113,7 +94,8 @@ export function PlayerProvider({children, teamName}){
             goalieData,
             setGoalieData, 
             mode,
-            setMode
+            setMode,
+            setTeam
             }}>
             {children}
         </PlayerContext.Provider>

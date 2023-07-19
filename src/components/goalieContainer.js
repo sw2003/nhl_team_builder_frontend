@@ -10,16 +10,19 @@ function GoalieContainer({ isOpen, setVisiblity }) {
             {
                 data.map((plr) => {
                     return <PlayerBox 
-                        key={plr.position}
+                        key={plr.linePosition}
                         isOpen={isOpen} 
                         setVisiblity={setVisiblity} 
-                        playerName={plr.name} 
-                        playerPosition={plr.position} 
+                        playerName={plr.fullname} 
+                        playerPosition={'G'} 
                         savePct={plr.savePct} 
                         saves={plr.saves} 
                         wins={plr.wins} 
                         losses={plr.losses} 
-                        goalsAgainstAverage={plr.goalsAgainstAverage}>
+                        goalsAgainstAverage={plr.goalsAgainstAverage}
+                        team={plr.team}
+                        linePosition={plr.linePosition}
+                        >
                     </PlayerBox>
                 })
             }

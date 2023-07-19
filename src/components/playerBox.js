@@ -6,7 +6,7 @@ import PlayerImage from './playerImage';
 import TeamImage from './teamImage';
 
 function PlayerBox(props) {
-    const isOpen = props.IsOpen;
+    const isOpen = props.isOpen;
     const setVisiblity = props.setVisiblity;
 
     const playerName = props.playerName;
@@ -40,16 +40,20 @@ function PlayerBox(props) {
 
     function onClick() {
         if (selectedData.name === '') {
+            console.log(1) 
+            console.log(linePosition); 
             setSelectedData({ name: playerName, position: linePosition });
             setVisiblity(true);
             return;
         }
 
         if (selectedData.name === playerName && selectedData.position === linePosition) {
+            console.log(2) 
             setVisiblity(!isOpen);
             return;
         }
         else {
+            console.log(3) 
             setVisiblity(true);
             setSelectedData({ name: playerName, position: linePosition });
             return;
@@ -59,11 +63,10 @@ function PlayerBox(props) {
 
     return (
         <div className='bg-white relative group rounded-xl border'>
-            <TeamImage team={team}></TeamImage>
-            <div className='absolute left-[50px] h-[50px] text-black flex justify-center items-center font-bold text-2xl'>{positionCode}</div>
-            <div className='absolute top-0 right-0 text-black'>{caphit}</div>
+            <TeamImage team={team} size={50} elePosition={'absolute'}></TeamImage>
+            <div className='absolute left-[75px] h-[50px] text-black flex justify-center items-center font-bold text-2xl'>{positionCode}</div>
+            <div className='absolute top-0 right-0 text-black mt-2 mr-2 font-bold group-hover:hidden'>{caphit}</div>
             <PlayerImage playerPosition={playerPosition} name={playerName}></PlayerImage>
-            {/*<img src={playerPosition?.charAt(0) === 'G' && playerName ? require(`../imgs/goalieImages/${playerName}.jpeg`) : require(`../imgs/playerImages/${playerName}.jpeg`)} className=' w-[220px] h-[159px] mx-auto' alt="" />*/}
             <p className='text-black group-hover:scale-125 group-hover:font-bold transition-all text-center'>{playerName}</p>
 
             <AiOutlineEdit size={30} onClick={() => onClick()} className='text-black absolute top-0 right-0 mr-2 mt-2 cursor-pointer group-hover:opacity-100 opacity-0 transition-all duration-200'></AiOutlineEdit>
@@ -89,7 +92,6 @@ function PlayerBox(props) {
                     </div>
                     
                     {   
-
                         typeof(goals) !== "number" && (<>
                             <div className='flex flex-col'>
                                 <div className='font-light'>L</div>
