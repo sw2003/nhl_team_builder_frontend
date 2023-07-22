@@ -1,11 +1,18 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
+const mongoose = require('mongoose') 
+require('dotenv').config();
+require('../src/api/db/db.connect')
+
 const PORT = 4000;
-require('./api/db/db.connect'); 
 
 app.use(cors());
 app.use(express.urlencoded())
+
+
+
+
 
 const ForwardRoute = require('./api/routes/ForwardRoute')
 const SearchRoute = require('./api/routes/SearchRoute')
@@ -13,6 +20,7 @@ const SearchRoute = require('./api/routes/SearchRoute')
 app.use('/api', ForwardRoute); 
 app.use('/api', SearchRoute)
 
-app.listen(PORT, ()=>{
+app.listen(PORT, async ()=>{
+
     console.log(`server listening on Port ${PORT}`);
 })

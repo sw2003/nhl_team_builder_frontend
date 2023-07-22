@@ -5,9 +5,12 @@ const playerSchema = new mongoose.Schema({
     goals: Number,
     assists: Number, 
     gamesPlayed: String,
+    shots: Number, 
+    positionCode: String, 
+    plusminus: String, 
     team: String, 
     timeOnIcePerGame: Number, 
     espnId: Number
 })
 
-module.exports = mongoose.model('Players' , playerSchema, 'Players')
+module.exports = mongoose.model('PlayersV3' , playerSchema, 'PlayersV3')
