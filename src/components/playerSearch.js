@@ -31,7 +31,7 @@ function PlayerSearch({ isOpen, setVisiblity }) {
         }
 
         if (input !== '') {
-            fetch(`http://localhost:4000/api/search?prefix=${input}&mode=${mode}`, options)
+            fetch(`http://192.18.132.24:4000/api/search?prefix=${input}&mode=${mode}`, options)
                 .then((res) => res.json())
                 .then((res) => {
                     setPlayerList(res);
@@ -41,7 +41,7 @@ function PlayerSearch({ isOpen, setVisiblity }) {
 
     return (
         <div className={`flex justify-center items-center`}>
-            <div className={`fixed w-full max-h-96 h-full max-w-2xl bottom-[-10px] z-20 bg-blue-950 transition-all duration-500 rounded-lg ${!isOpen && 'scale-y-0'} origin-bottom`}>
+            <div className={`fixed w-full max-h-96 h-full max-w-2xl bottom-[-10px] z-20 bg-blue-950 transition-all duration-500 rounded-lg ${!isOpen && 'scale-y-0'} origin-bottom touch-none`}>
                 <div className="absolute top-0 right-0 text-white">
                     <AiOutlineCaretDown className="mt-1 mr-1 cursor-pointer	" size={40} onClick={() => setVisiblity(!isOpen)}></AiOutlineCaretDown>
                 </div>

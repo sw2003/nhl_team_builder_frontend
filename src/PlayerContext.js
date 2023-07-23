@@ -3,17 +3,9 @@ import {createContext, useState, useEffect} from 'react'
 const PlayerContext = createContext();
 
 export function PlayerProvider({children, teamName}){
-
-
-    const goalies = [
-        {position: 'G1', name: 'Linus Ullmark', savePct: 0, saves: 0, wins: 0, losses: 0, goalsAgainstAverage: 0},
-        {position: 'G2', name: 'Linus Ullmark', savePct: 0, saves: 0, wins: 0, losses: 0, goalsAgainstAverage: 0},
-        {position: 'G3', name: 'Linus Ullmark',  savePct: 0, saves: 0, wins: 0, losses: 0, goalsAgainstAverage: 0},
-    ]
-
     const [forwardData, setForwardData] = useState([]); 
     const [defenderData, setDefenderData] = useState([]); 
-    const [goalieData, setGoalieData] = useState(goalies); 
+    const [goalieData, setGoalieData] = useState([]); 
 
     const [selectedForward, setSelected] = useState({name: '', position: ''});
 
@@ -24,7 +16,7 @@ export function PlayerProvider({children, teamName}){
 
     useEffect(()=>{
         try {
-            fetch(`http://localhost:8000/api?teamname=${team}`) 
+            fetch(`http://192.18.132.24:3000?teamname=${team}`) 
                 .then((res)=>res.json())
                 .then((res)=>{
                     let counter = 0; 
@@ -62,12 +54,8 @@ export function PlayerProvider({children, teamName}){
                             defenderList.push(res[i]); 
                         }
                         else{
-
-
                             res[i].linePosition = `G${counter}`
                             
-
-
                             goalieList.push(res[i])
                         }
                         counter++; 

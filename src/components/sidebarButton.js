@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import PlayerContext from '../PlayerContext';
 
-function NavbarButton({ icon ,path, name, setVisiblity}){
+function SidebarButton({ icon ,path, name, setVisiblity}){
     const PContext = useContext(PlayerContext);
     const setMode = PContext.setMode; 
 
@@ -21,13 +21,13 @@ function NavbarButton({ icon ,path, name, setVisiblity}){
     }
 
     return (
-        <div onClick={()=>onClick()} className='h-14 w-14 flex justify-center items-center p-3 my-2 mx-auto bg-black text-white hover:bg-green-200 group transition-all duration-300 rounded hover:rounded-3xl hover:text-black'>
+        <div onClick={()=>onClick()} className='h-10 w-10 flex justify-center items-center p-3 my-2 mx-auto bg-black text-white hover:bg-green-200 group transition-all duration-300 rounded hover:rounded-3xl hover:text-black'>
             {icon}
-            <span className='absolute left-24 scale-0 group-hover:scale-100 transition-all duration-300 pl-4 pr-4 pt-2 pb-2 bg-blue-950 border rounded border-white text-white'>
+            <span className='absolute left-16 scale-0 group-hover:scale-100 transition-all duration-300 pl-4 pr-4 pt-2 pb-2 bg-blue-950 border rounded border-white text-white z-40'>
                 {name}
             </span>
         </div>
     )
 }
 
-export default NavbarButton; 
+export default SidebarButton; 

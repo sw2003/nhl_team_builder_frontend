@@ -27,11 +27,19 @@ function PlayerBox(props) {
     const timeOnIcePerGame = props?.timeOnIcePerGame; 
     const caphit = props?.caphit
 
-    const savePct = props?.savePct;
+    let savePct = props?.savePct;
     const saves = props?.saves;
     const wins = props?.wins;
     const losses = props?.losses;
-    const goalsAgainstAverage = props?.goalsAgainstAverage;
+    let goalsAgainstAverage = props?.goalsAgainstAverage;
+
+    try {
+        savePct = parseFloat(savePct?.toFixed(3));
+        goalsAgainstAverage = parseFloat(goalsAgainstAverage?.toFixed(2)); 
+    } catch (error) {
+        savePct = 'N/A'; 
+        goalsAgainstAverage = 'N/A'; 
+    }
 
 
     const FContext = useContext(PlayerContext);
@@ -62,49 +70,48 @@ function PlayerBox(props) {
 
 
     return (
-        <div className='bg-white relative group rounded-xl border'>
-            <TeamImage team={team} size={50} elePosition={'absolute'}></TeamImage>
-            <div className='absolute left-[75px] h-[50px] text-black flex justify-center items-center font-bold text-2xl'>{positionCode}</div>
-            <div className='absolute top-0 right-0 text-black mt-2 mr-2 font-bold group-hover:hidden'>{caphit}</div>
+        <div className='bg-white relative group rounded-xl border touch-pan-y '>
+            <TeamImage team={team} size={10} elePosition={'absolute'}></TeamImage>
+            <div className='absolute left-[50px] h-[50px] text-black flex justify-center items-center font-bold text-xl hidden md:block'>{positionCode}</div>
+            <div className='absolute top-0 right-0 text-black mt-2 mr-2 font-bold text-sm xl:text-base group-hover:hidden hidden md:block'>{caphit}</div>
             <PlayerImage playerPosition={playerPosition} name={playerName}></PlayerImage>
-            <p className='text-black group-hover:scale-125 group-hover:font-bold transition-all text-center'>{playerName}</p>
+            <p className='text-black group-hover:scale-125 group-hover:font-bold transition-all text-center text-xs whitespace-nowrap'>{playerName}</p>
 
             <AiOutlineEdit size={30} onClick={() => onClick()} className='text-black absolute top-0 right-0 mr-2 mt-2 cursor-pointer group-hover:opacity-100 opacity-0 transition-all duration-200'></AiOutlineEdit>
 
-            <div className=' w-[95%]  border-2 rounded-2xl overflow-hidden mx-auto text-center mb-2'>
-                <div className=' w-full bg-cyan-700'>2022-2023 SEASON STATS</div>
+            <div className='w-[95%] border-2 rounded-2xl overflow-hidden mx-auto text-center mb-2'>
+                <div className=' w-full bg-cyan-700 text-[8px] whitespace-nowrap'>SEASON STATS</div>
                 <div className={`grid ${typeof(goals) === "number" ? 'grid-cols-4' : 'grid-cols-6'} gap-x-0.5 text-black`}>
                     <div className='flex flex-col'>
-                        <div className='font-light text-sm'>{typeof(goals) === "number" ? 'G' : 'SV%'}</div>
-                        <div className='font-bold text-lg'>{typeof(goals) === "number" ? goals : parseFloat(savePct?.toFixed(3))}</div>
+                        <div className='font-light text-xs'>{typeof(goals) === "number" ? 'G' : 'SV%'}</div>
+                        <div className='font-light text-xs'>
+                            {typeof(goals) === "number" ? goals : savePct}
+                        </div>
                     </div>
                     <div className='flex flex-col border-l-2'>
-                        <div className='font-light text-sm'>{typeof(goals) === "number" ? 'A' : 'GAA'}</div>
-                        <div className='font-bold text-lg'>{typeof(goals) === "number"? assists : parseFloat(goalsAgainstAverage?.toFixed(2))}</div>
+                        <div className='font-light text-xs'>{typeof(goals) === "number" ? 'A' : 'GAA'}</div>
+                        <div className='font-light text-xs'>{typeof(goals) === "number"? assists : goalsAgainstAverage}</div>
                     </div>
                     <div className='flex flex-col border-l-2'>
-                        <div className='font-light text-sm'>{typeof(goals) === "number" ? 'PTS' : 'W'}</div>
-                        <div className='font-bold text-lg'>{typeof(goals) === "number" ? Number(goals) + Number(assists) : wins}</div>
+                        <div className='font-light text-xs'>{typeof(goals) === "number" ? 'PTS' : 'W'}</div>
+                        <div className='font-light text-xs'>{typeof(goals) === "number" ? Number(goals) + Number(assists) : wins}</div>
                     </div>
                     <div className='flex flex-col border-l-2'>
-                        <div className='font-light text-sm'>{typeof(goals) === "number" ? '+/-' : 'L'}</div>
-                        <div className='font-bold text-lg'>{typeof(goals) === "number" ? plusminus : losses}</div>
+                        <div className='font-light text-xs'>{typeof(goals) === "number" ? '+/-' : 'L'}</div>
+                        <div className='font-light text-xs'>{typeof(goals) === "number" ? plusminus : losses}</div>
                     </div>
-                    
                     {   
                         typeof(goals) !== "number" && (<>
                             <div className='flex flex-col'>
-                                <div className='font-light'>L</div>
-                                <div className='font-bold'>{losses}</div>
+                                <div className='font-light text-xs'>L</div>
+                                <div className='font-light text-xs'>{losses}</div>
                             </div>
                             <div className='flex flex-col'>
-                                <div className='font-light'>SV</div>
-                                <div className='font-bold'>{saves}</div>
+                                <div className='font-light text-xs'>SV</div>
+                                <div className='font-light text-xs'>{saves}</div>
                             </div>
                         </>)
-                    
                     }
-                    
                 </div>
             </div>
         </div>

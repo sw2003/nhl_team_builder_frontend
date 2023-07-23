@@ -5,7 +5,7 @@ function TeamImage({team, size, elePosition}){
         return <img 
         src={require(`../imgs/teamImages/${team}.png`)} 
         alt="" 
-        className={`w-[${size}px] h-[${size}px] object-contain ${elePosition} ${elePosition !== 'absolute' && `group-hover:-translate-x-3`} transition-all duration-200`}
+        className={`w-8 h-8 object-contain ${elePosition} ${elePosition !== 'absolute' && `group-hover:-translate-x-3`} transition-all duration-200`}
         />
 
     }catch(error){
