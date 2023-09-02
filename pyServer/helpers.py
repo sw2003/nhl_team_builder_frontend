@@ -16,6 +16,8 @@ load_dotenv()
 # Now, you can access the variables using the os.environ dictionary
 uri = os.environ.get("database_uri")
 
+print(uri); 
+
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 # Replace the placeholder with your Atlas connection string
